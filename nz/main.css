@@ -29,3 +29,6 @@ header nav img {
     /* macht Kreis aus dem Bild*/
 }
 
+a:link, a:visited{
+    color: black;
+} 
