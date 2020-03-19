@@ -8,7 +8,7 @@ body {
 header {
     text-align: center;
 }
-    
+
 header p {
     font-size: 0.8em;
     /* 0.8 der Originalgröße 1em = 1 Buchstabe*/
@@ -18,8 +18,9 @@ header p {
     margin-top: -2em;
 }
 
-.white, .white a:link, .white a:visited {
-     {
-    color: white;
-}
-
+.white,
+.white a:link,
+.white a:visited {
+        {
+        color: white;
+    }
