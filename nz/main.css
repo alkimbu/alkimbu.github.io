@@ -9,3 +9,11 @@ header {
     text-align: center;
 }
     
+header p {
+    font-size: 0.8em;
+    /* 0.8 der Originalgröße 1em = 1 Buchstabe*/
+    font-weight: bold;
+    text-align: right;
+    padding-right: 1em;
+    margin-top: -2em;
+}
