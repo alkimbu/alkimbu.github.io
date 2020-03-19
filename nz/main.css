@@ -21,6 +21,11 @@ header p {
 .white,
 .white a:link,
 .white a:visited {
-        {
         color: white;
     }
+
+header nav img {
+    border-radius: 50%;
+    /* macht Kreis aus dem Bild*/
+}
+
