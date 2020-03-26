@@ -120,3 +120,11 @@ users.forEach(user => {
 let firstParagraph = document.querySelector("#pFirst");
 console.log(firstParagraph);
 firstParagraph.innerHTML = "Test";
+firstParagraph.style.color = "red";
+
+let indetedParas = document.querySelectorAll(".ident");
+console.log(indetedParas);
+indetedParas.forEach((para, index) => {
+    para.innerHTML = `Absatz ${index}`;
+    // para.style.color = "yellow";
+})
