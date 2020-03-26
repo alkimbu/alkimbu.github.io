@@ -125,6 +125,11 @@ firstParagraph.style.color = "red";
 let indetedParas = document.querySelectorAll(".ident");
 console.log(indetedParas);
 indetedParas.forEach((para, index) => {
+    console.log(`Data attribut ${para.dataset.lat}`)
     para.innerHTML = `Absatz ${index}`;
-    // para.style.color = "yellow";
-})
+    if (index % 2 == 0) {
+        para.style.color = "red";
+    } else{
+        para.style.color = "blue";
+    }
+});
