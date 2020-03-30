@@ -1,8 +1,6 @@
 //alert("Hallo Welt!")
 
-var mymap = L.map('map').setView([data - lat = "-41.293056"
-    data - lng = "174.001944"
-], 13);
+var mymap = L.map('map').setView([51.505, -0.09], 13);
 
 L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     maxZoom: 17,
