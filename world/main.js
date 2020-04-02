@@ -7,14 +7,16 @@ let map = L.map("map", {
     ]
 });
 
+let circleGroup = L.featureGroup().addTo(map);
+
 L.control.layers({
     "OpenTopoMap" : startLayer,
     "OpenStreetMap.Mapnik" : L.tileLayer.provider("OpenStreetMap.Mapnik"),
     "Stamen.Watercolor" :  L.tileLayer.provider("Stamen.Watercolor"),
     "Stamen.TerrainBackground" :  L.tileLayer.provider("Stamen.TerrainBackground"),
     "Esri.WorldImagery" :  L.tileLayer.provider("Esri.WorldImagery"),
-
-
+},{
+    "Thematische Darstellung" : circleGroup
 }).addTo(map)
 
 
@@ -34,6 +36,6 @@ for (let i = 1; i < CONFIRMED.length; i++) {
    
     let circle= L.circleMarker([lat,lng],{
             radius: r
-    }).addTo(map);
+    }).addTo(circleGroup);
         circle.bindPopup(`${reg}: ${val}`)
 }
