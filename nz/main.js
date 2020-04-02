@@ -1,21 +1,23 @@
-// Infos aus html abrufen
 
-let map = document.querySelector("#map");
-let lat = map.dataset.lat;
-let lng = map.dataset.lng;
-let markerTitle = map.dataset.title;
+let mapdiv = document.querySelector("#map");
 
-// Darstellung der Karte
+let map = L.map("map", {
+    center: [
+        mapdiv.dataset.lat,
+        mapdiv.dataset.lng
+    ],
+    zoom: 17,
+    layers: [
+        L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 13,
+            attribution: `Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>tributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https:/ntopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)`
+        })
+    ]
+});
 
-let map = L.map('map').setView([lat, lng], 13);
+let mrk = L.marker([
+    mapdiv.dataset.lat,
+    mapdiv.dataset.lng
+]).addTo(map);
 
-L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
-    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>tributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https:/ntopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-}).addTo(map);
-
-// Marker einfügen
-
-let marker = L.marker([lat, lng]).addTo(mymap);
-
-marker.bindPopup(markerTitle).openPopup();
+mrk.bindPopup(mapdiv.dataset.title).openPopup();
