@@ -25,6 +25,8 @@ let drawCircles = function () {
     let header = CONFIRMED[0];
     let index = header.length - 1; 
 
+    document.querySelector("#datum").innerHTML = `am ${header[index]}`;
+
 
         for (let i = 1; i < data.length; i++) {
             let row = data[i];
@@ -42,7 +44,7 @@ let drawCircles = function () {
             let circle = L.circleMarker([lat, lng], {
                 radius: r
             }).addTo(circleGroup);
-            circle.bindPopup(`${reg}: ${val}`)
+            circle.bindPopup(`${reg}: ${val}`);
 
         }
 
