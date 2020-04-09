@@ -99,3 +99,22 @@ slider.onchange = function () {
 drawCircles();
 // drawCircles(RECOVERED);
 // drawCircles(DEATHS);
+
+let playButton = document.querySelector("#play");
+
+playButton.onclick = function () {
+
+    let value = slider.min;
+    let runningAnimation = null;
+
+    let runningAnimation = window.setInterval(function (){
+        slider.value = value;
+        drawCircles ();
+        value++;
+
+        if (value > slider.max) {
+            window.clearInterval (runningAnimation);
+        }
+    }, 250)
+
+};
