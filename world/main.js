@@ -24,15 +24,24 @@ let drawCircles = function () {
     let data = CONFIRMED;
     let header = CONFIRMED[0];
     let index = header.length - 1; 
-    let options = document.querySelector("pulldown").options;
+    let options = document.querySelector("#pulldown").options;
     let value = options[options.selectedIndex].value;
     let label = options[options.selectedIndex].text;
 
+
+    if(value === "confirmed") {
+        data = CONFIRMED;
+    } else if (value === "deaths") {
+        data = DEATHS;
+    } else {
+        data = RECOVERED;
+    }
     //Datum und Thema anzeigen
 
     document.querySelector("#datum").innerHTML = `am ${header[index]} - ${label}`;
 
-
+    circleGroup.clearLayers();
+    
         for (let i = 1; i < data.length; i++) {
             let row = data[i];
             // console.log(row[2], row[3]);
