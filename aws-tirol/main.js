@@ -55,6 +55,7 @@ pointToLayer: function (point, latlng) {
                 + `<li><b>Relative Luftfeuchte:</b> ${point.properties.RH} %</li>`
                 + `<li><b>Schneehöhe:</b> ${point.properties.HS} cm</li>`
                 + `</ul>`
+                + `<a target="links" href="https://lawine.tirol.gv.at/data/grafiken/1100/standard/tag/${point.properties.plot}.png">>> Graphik der Wetterstation</a>`
                 ;
               
 
