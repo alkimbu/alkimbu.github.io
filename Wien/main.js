@@ -52,11 +52,32 @@ sights.on("data:loaded", function() {
     map.fitBounds(sightGroup.getBounds());
 });
 
+// Wanderwege
+
 let wandern = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WANDERWEGEOGD&srsName=EPSG:4326&outputFormat=json";
 
 L.geoJson.ajax(wandern, {
-    style: function() {
-        return { color: "green", weight: 5 };
+    style: function (feature) {
+        
+        if (feature.properties.TYP == "1") {
+            return {
+                color: "black",
+                dashArray: "5,6",
+                fillOpacity: 0.3
+            };
+        } else if (feature.properties.TYP == "2") {
+            return {
+                color: "black",
+                dashArray: "1,10",
+                fillOpacity: 0.3
+            };
+
+        }
+
+    },
+    onEachFeature: function (feature, layer) {
+        // console.log("Wanderweg Feature", feature);
+        layer.bindPopup(`${feature.properties.BEZ_TEXT}`)
     }
 }).addTo(map);
 
