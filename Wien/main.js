@@ -30,7 +30,7 @@ L.control.layers({
 let sightUrl = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD &srsName=EPSG:4326&outputFormat=json";
 
 let sights = L.geoJson.ajax(sightUrl, {
-    pointToLayer: function(point, latlng) {
+    pointToLayer: function (point, latlng) {
         let icon = L.icon({
             iconUrl: 'icons/sight.svg',
             iconSize: [32, 32]
@@ -46,7 +46,7 @@ let sights = L.geoJson.ajax(sightUrl, {
     }
 });
 
-sights.on("data:loaded", function() {
+sights.on("data:loaded", function () {
     sightGroup.addLayer(sights);
     console.log('data loaded!');
     map.fitBounds(sightGroup.getBounds());
@@ -58,7 +58,7 @@ let wandern = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&
 
 L.geoJson.ajax(wandern, {
     style: function (feature) {
-        
+
         if (feature.properties.TYP == "1") {
             return {
                 color: "black",
@@ -90,14 +90,14 @@ let drawHeritageSorted = function (jsondata) {
     console.log("original", heritage_list);
 
     // Einteilen in Pufferzone und Kernzone
-    
-    heritage_list.sort(function compareTyp(obj1, obj2) { 
-    
-        return obj2.properties.TYP - obj1.properties.TYP; 
+
+    heritage_list.sort(function compareTyp(obj1, obj2) {
+
+        return obj2.properties.TYP - obj1.properties.TYP;
     });
 
-   // Farbe je nach Zone vergeben 
-   
+    // Farbe je nach Zone vergeben 
+
     L.geoJson(heritage_list, {
         style: function (feature) {
             if (feature.properties.TYP == "1") {
@@ -107,7 +107,7 @@ let drawHeritageSorted = function (jsondata) {
                 };
             } else if (feature.properties.TYP == "2") {
                 return {
-                    color: "yellow"
+                    color: "yellow",
                     fillOpacity: 0.3
                 };
             }
@@ -121,6 +121,12 @@ let drawHeritageSorted = function (jsondata) {
         }
     }).addTo(map);
 
-    let heritage_layer = L.geoJson.ajax(heritage, { 
-        middleware: function (jsondata) {
-            return drawHeritageSorted(jsondata);
+}
+
+let heritage_layer = L.geoJson.ajax(heritage, {
+    middleware: function (jsondata) {
+        return drawHeritageSorted(jsondata);
+
+    }
+
+});
