@@ -42,20 +42,23 @@ let aws = L.geoJson.ajax(awsUrl, {
     },
 
 
-    pointToLayer: function (point, latlng) {
-        let marker = L.marker(latlng);
-        popupText = `<h3>${point.properties.name} ${point.geometry.coordinates[2]} m</h3>`
-                    `<ul>`
-                    `<li><b>Position:</b> Lat: ${point.geometry.coordinates[0]}/Lng: ${point.geometry.coordinates[1]}</li>`
-                    `<li><b>Datum:</b> ${point.properties.date}</li>`
-                    `<li><b>Temperatur:</b> ${point.properties.LT} °C</li>`
-                    `<li><b>Windgeschwindigkeit:</b> ${point.properties.WG} m/s</li>`
-                    `<li><b>Relative Luftfeuchte:</b> ${point.properties.RH} %</li>`
-                    `<li><b>Schneehöhe:</b> ${point.properties.HS} cm</li>`
-                    `</ul>`
-                    
 
-        marker.bindPopup(popupText); 
-        return marker;
+
+pointToLayer: function (point, latlng) {
+    let marker = L.marker(latlng);
+    popupText = `<h3>${point.properties.name} ${point.geometry.coordinates[2]} </h3>`
+                + `<ul>`
+                + `<li><b>Position:</b> Lat: ${point.geometry.coordinates[0]}/Lng: ${point.geometry.coordinates[1]}</li>`
+                + `<li><b>Datum:</b> ${point.properties.date}</li>`
+                + `<li><b>Temperatur:</b> ${point.properties.LT} °C</li>`
+                + `<li><b>Windgeschwindigkeit:</b> ${point.properties.WG} m/s</li>` 
+                + `<li><b>Relative Luftfeuchte:</b> ${point.properties.RH} %</li>`
+                + `<li><b>Schneehöhe:</b> ${point.properties.HS} cm</li>`
+                + `</ul>`
+                ;
+              
+
+    marker.bindPopup(popupText); 
+    return marker;
     }
 }).addTo(awsLayer);
