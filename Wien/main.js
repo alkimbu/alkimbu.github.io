@@ -112,3 +112,15 @@ let drawHeritageSorted = function (jsondata) {
                 };
             }
         },
+
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(`
+                <h3>${feature.properties.NAME}</h3>
+                <p>${feature.properties.INFO}</p>
+            `)
+        }
+    }).addTo(map);
+
+    let heritage_layer = L.geoJson.ajax(heritage, { 
+        middleware: function (jsondata) {
+            return drawHeritageSorted(jsondata);
