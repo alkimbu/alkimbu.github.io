@@ -76,21 +76,39 @@ L.geoJson.ajax(wandern, {
 
     },
     onEachFeature: function (feature, layer) {
-        // console.log("Wanderweg Feature", feature);
         layer.bindPopup(`${feature.properties.BEZ_TEXT}`)
     }
 }).addTo(map);
 
+
+// Weltkulturerbe 
+
 let heritage = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WELTKULTERBEOGD&srsName=EPSG:4326&outputFormat=json";
 
-L.geoJson.ajax(heritage, {
-    style: function() {
-        return { color: "salmon", fillOpacity: 0.3 };
-    },
-    onEachFeature: function(feature, layer) {
-        console.log("Feature: ", feature);
-        layer.bindPopup(`<h3>${feature.properties.NAME}</h3>
-        <p>${feature.properties.INFO}</p>
-        `);
-    }
-}).addTo(map);
+let drawHeritageSorted = function (jsondata) {
+    heritage_list = jsondata.features
+    console.log("original", heritage_list);
+
+    // Einteilen in Pufferzone und Kernzone
+    
+    heritage_list.sort(function compareTyp(obj1, obj2) { 
+    
+        return obj2.properties.TYP - obj1.properties.TYP; 
+    });
+
+   // Farbe je nach Zone vergeben 
+   
+    L.geoJson(heritage_list, {
+        style: function (feature) {
+            if (feature.properties.TYP == "1") {
+                return {
+                    color: "red",
+                    fillOpacity: 0.3
+                };
+            } else if (feature.properties.TYP == "2") {
+                return {
+                    color: "yellow"
+                    fillOpacity: 0.3
+                };
+            }
+        },
