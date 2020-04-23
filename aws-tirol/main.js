@@ -1,8 +1,6 @@
 let startLayer = L.tileLayer.provider("BasemapAT.grau");
 
 let map = L.map("map", {
-    center: [47.3, 11.5],
-    zoom: 8,
     layers: [
         startLayer
     ]
@@ -40,7 +38,7 @@ let aws = L.geoJson.ajax(awsUrl, {
         // return false; 
         // } 
         // return feature.properties.LT < 5; 
-        return feature.properties.LT != null;
+        return feature.properties.LT;
     },
 
 
@@ -48,16 +46,16 @@ let aws = L.geoJson.ajax(awsUrl, {
 
 pointToLayer: function (point, latlng) {
     let marker = L.marker(latlng);
-    popupText = `<h3>${point.properties.name} ${point.geometry.coordinates[2]} </h3>`
-                + `<ul>`
-                + `<li><b>Position:</b> Lat: ${point.geometry.coordinates[0]}/Lng: ${point.geometry.coordinates[1]}</li>`
-                + `<li><b>Datum:</b> ${point.properties.date}</li>`
-                + `<li><b>Temperatur:</b> ${point.properties.LT} °C</li>`
-                + `<li><b>Windgeschwindigkeit:</b> ${point.properties.WG} m/s</li>` 
-                + `<li><b>Relative Luftfeuchte:</b> ${point.properties.RH} %</li>`
-                + `<li><b>Schneehöhe:</b> ${point.properties.HS} cm</li>`
-                + `</ul>`
-                + `<a target="links" href="https://lawine.tirol.gv.at/data/grafiken/1100/standard/tag/${point.properties.plot}.png">>> Graphik der Wetterstation</a>`
+    popupText = `<h3>${point.properties.name} ${point.geometry.coordinates[2]} </h3>
+                <ul>
+                <li><b>Position:</b> Lat: ${point.geometry.coordinates[0]}/Lng: ${point.geometry.coordinates[1]}</li>
+                <li><b>Datum:</b> ${point.properties.date}</li>
+                <li><b>Temperatur:</b> ${point.properties.LT} °C</li>
+                <li><b>Windgeschwindigkeit:</b> ${point.properties.WG} m/s</li>
+                <li><b>Relative Luftfeuchte:</b> ${point.properties.RH} %</li>
+                <li><b>Schneehöhe:</b> ${point.properties.HS} cm</li>
+                </ul>
+                <a target="links" href="https://lawine.tirol.gv.at/data/grafiken/1100/standard/tag/${point.properties.plot}.png">>> Graphik der Wetterstation</a>`
                 ;
               
 
@@ -65,3 +63,12 @@ pointToLayer: function (point, latlng) {
     return marker;
     }
 }).addTo(overlay.stations);
+
+aws.on("data:loaded", function() {
+    console.log(aws.toGeoJSON());
+
+    map.fitBounds(overlay.stations.getBounds());
+
+    overlay.stations.addTo(map);
+
+});
