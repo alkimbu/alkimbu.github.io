@@ -28,7 +28,8 @@ L.control.layers({
 }, {
     "Wetterstationen Tirol": overlay.stations,
     "Temperatur (°C)": overlay.temperature,
-    "Windgeschwindigkeit (km/h)": overlay.wind
+    "Windgeschwindigkeit (km/h)": overlay.wind,
+    "Luftfeuchtigkeit (%)": overlay.humidity
 }).addTo(map);
 
 let awsUrl = "https://aws.openweb.cc/stations";
