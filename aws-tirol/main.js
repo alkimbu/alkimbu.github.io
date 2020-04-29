@@ -13,7 +13,8 @@ let overlay = {
     stations: L.featureGroup(),
     temperature: L.featureGroup(),
     wind: L.featureGroup(),
-    humidity: L.featureGroup()
+    humidity: L.featureGroup(),
+    snow: L.featureGroup ()
 }
 
 L.control.layers({
