@@ -134,12 +134,14 @@ let drawHumidity = function(jsonData) {
             })
         }
     }).addTo(overlay.humidity);
+};
           
 
 aws.on("data:loaded", function() {
     //console.log(aws.toGeoJSON());
     drawTemperature(aws.toGeoJSON());
     drawWind(aws.toGeoJSON());
+    drawHumidity (aws.toGeoJSON());
     map.fitBounds(overlay.stations.getBounds());
 
     overlay.wind.addTo(map);
