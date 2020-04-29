@@ -167,6 +167,7 @@ aws.on("data:loaded", function() {
     drawTemperature(aws.toGeoJSON());
     drawWind(aws.toGeoJSON());
     drawHumidity (aws.toGeoJSON());
+    drawSnow (aws.toGeoJSON());
     map.fitBounds(overlay.stations.getBounds());
 
     overlay.wind.addTo(map);
