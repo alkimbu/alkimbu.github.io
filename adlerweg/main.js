@@ -48,23 +48,29 @@ for (const blick of ADLERBLICKE) {
 }
 overlay.adlerblicke.addTo(map);
 
-let gpx = new L.GPX("gpx/AdlerwegEtappe01.gpx", {
-    async: true,
-    marker_options: {
-        startIconUrl: 'icons/number_1.png',
-        endIconUrl: 'icons/finish.png',
-        shadowUrl: null,
-        iconSize: [32, 37],
-        popupAnchor: [0, -37]
-    },
+let drawEtappe = function(nr) {
+    let track = ETAPPEN[nr].track.replace("A", "");
+    let gpx = new L.GPX(`gpx/AdlerwegEtappe${track}.gpx`, {
+        async: true,
+        marker_options: {
+            startIconUrl: 'icons/number_1.png',
+            endIconUrl: 'icons/finish.png',
+            shadowUrl: null,
+            iconSize: [32, 37],
+            popupAnchor: [0, -37]
+        },
+    
+        polyline_options: {
+            color: "black",
+            dashArray: [2, 5]
+          }
+    });
+    
+    gpx.on("loaded", function(evt) {
+        map.fitBoundries(evt.tagets.getBounds());
+    
+    }).addTo(overlay.etappen);
+    overlay.etappen.addTo(map);
+};
+drawEtappe(10);
 
-    polyline_options: {
-        color: "black",
-        dashArray: [2, 5]
-      }
-});
-
-gpx.on("loaded", function(evt) {
-    map.fitBoundries(evt.tagets.getBounds());
-
-}).addTo(overlay.etappen);
