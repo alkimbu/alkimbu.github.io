@@ -68,35 +68,32 @@ let drawEtappe = function(nr) {
     });
     
     gpx.on("loaded", function(evt) {
-        map.fitBoundries(evt.tagets.getBounds());
-    
+        map.fitBounds(evt.target.getBounds());
     }).addTo(overlay.etappen);
     overlay.etappen.addTo(map);
 
     for (const key in ETAPPEN[nr]) {
-        if (ETAPPEN[nr].hasOwnProperty(key)) {
-            const element = ETAPPEN[nr][key];
-            console.log(key);
-            if (document.querySelector(`et-${key}`))
-            
+        const val = ETAPPEN[nr][key];
+        console.log(`et-${key}`);
+        let elem = document.querySelector(`#et-${key}`);
+        if (elem) {
+            elem.innerHTML = val;
+            console.log(val);
         }
     }
 };
 drawEtappe(10);
 
 let pulldown = document.querySelector("#pulldown");
+//console.log(pulldown);
 
 for (let i = 1; i < ETAPPEN.length; i++) {
     const etappe = ETAPPEN[i];
+    //console.log(etappe);
     pulldown.innerHTML += `<option value="${i}">${etappe.titel}</option>`;
-    
 }
 pulldown.onchange = function(evt) {
     let nr = evt.target.options[evt.target.options.selectedIndex].value;
-    // console.log(nr);
+    //console.log(nr);
     drawEtappe(nr);
-
 }
-
-
-
