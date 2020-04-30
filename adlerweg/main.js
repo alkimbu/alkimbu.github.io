@@ -72,6 +72,15 @@ let drawEtappe = function(nr) {
     
     }).addTo(overlay.etappen);
     overlay.etappen.addTo(map);
+
+    for (const key in ETAPPEN[nr]) {
+        if (ETAPPEN[nr].hasOwnProperty(key)) {
+            const element = ETAPPEN[nr][key];
+            console.log(key);
+            if (document.querySelector(`et-${key}`))
+            
+        }
+    }
 };
 drawEtappe(10);
 
