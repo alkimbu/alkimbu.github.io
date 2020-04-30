@@ -21,3 +21,14 @@ L.control.layers({
         L.tileLayer.provider("BasemapAT.overlay")
     ])
 }).addTo(map);
+
+for (const blick of ADLERBLICKE) {
+    // console.log(blick);
+
+    //marker einfügen
+    let mrk = L.marker([blick.lat, blick.lng]).addTo(map);
+
+    //pop up Text
+    mrk.bindPopup(`Standort${blick.standort} (${blick.seehoehe})`)
+}
+
