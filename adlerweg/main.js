@@ -133,8 +133,13 @@ drawEinkehr();
 overlay.einkehr.addTo(map);
 
 let controlElevation = L.control.elevation({
-    theme: "steelblue-theme",
+    theme: "adler-theme",
     detached: true,
     elevationDiv: "#profile",
     followMarker: false
+}).addTo(map);
+
+// Maßstab hinzufügen
+L.control.scale({
+    imperial:false
 }).addTo(map);
