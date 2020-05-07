@@ -34,8 +34,8 @@ L.control.layers({
 //console.log(ADLERBLICKE);
 
 for (const blick of ADLERBLICKE) {
-   // console.log(blick);
-    let mrk = L.marker([blick.lat,blick.lng], {
+    // console.log(blick);
+    let mrk = L.marker([blick.lat, blick.lng], {
         icon: L.icon({
             iconSize: [32, 37],
             iconAnchor: [16, 37],
@@ -48,7 +48,7 @@ for (const blick of ADLERBLICKE) {
 }
 overlay.adlerblicke.addTo(map);
 
-let drawEtappe = function(nr) {
+let drawEtappe = function (nr) {
     overlay.etappen.clearLayers();
     let track = ETAPPEN[nr].track.replace("A", "");
     let gpx = new L.GPX(`gpx/AdlerwegEtappe${track}.gpx`, {
@@ -60,14 +60,14 @@ let drawEtappe = function(nr) {
             iconSize: [32, 37],
             popupAnchor: [0, -37]
         },
-    
+
         polyline_options: {
             color: "black",
             dashArray: [2, 5]
-          }
+        }
     });
-    
-    gpx.on("loaded", function(evt) {
+
+    gpx.on("loaded", function (evt) {
         map.fitBounds(evt.target.getBounds());
     }).addTo(overlay.etappen);
     overlay.etappen.addTo(map);
@@ -75,14 +75,14 @@ let drawEtappe = function(nr) {
     for (const key in ETAPPEN[nr]) {
         let val = ETAPPEN[nr][key];
         if (key === "einkehr") {
-            val = ETAPPEN[nr][key].replace(/#/g, ", "); 
+            val = ETAPPEN[nr][key].replace(/#/g, ", ");
         };
 
         let track = document.querySelector(`#et-${key}`);
         if (key == "track") {
             track.href = `gpx/AdlerwegEtappe${ETAPPEN[nr][key].replace("A", "")}.gpx`
         };
-       
+
 
 
         let elem = document.querySelector(`#et-${key}`);
@@ -102,7 +102,7 @@ for (let i = 1; i < ETAPPEN.length; i++) {
     //console.log(etappe);
     pulldown.innerHTML += `<option value="${i}">${etappe.titel}</option>`;
 }
-pulldown.onchange = function(evt) {
+pulldown.onchange = function (evt) {
     let nr = evt.target.options[evt.target.options.selectedIndex].value;
     //console.log(nr);
     drawEtappe(nr);
