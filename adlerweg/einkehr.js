@@ -59,5 +59,13 @@ const EINKEHR = [{
 
     },
 
+    {
+        "etappe": 27,
+        "name": "Bonn Matreier Hütte",
+        "lat": 47.039144, 
+        "lng": 12.427505
+
+    },
+
 
 ]
