@@ -81,7 +81,7 @@ let drawEtappe = function(nr) {
         let track = document.querySelector(`#et-${key}`);
         if (key == "track") {
             track.href = `gpx/AdlerwegEtappe${ETAPPEN[nr][key].replace("A", "")}.gpx`
-        }
+        };
        
 
 
