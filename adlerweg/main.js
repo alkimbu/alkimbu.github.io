@@ -73,13 +73,25 @@ let drawEtappe = function(nr) {
     overlay.etappen.addTo(map);
 
     for (const key in ETAPPEN[nr]) {
-        const val = ETAPPEN[nr][key];
+    
+        let einkehr = "Einkehr Komma"
+        if (key === "einkehr") {
+            ETAPPEN.einkehr.replace("#", ", ");
+            // console.log(einkehr);
+        } else {
+            val = ETAPPEN[nr];
+
+            console.log(einkehr);
+        };
+            
+    
+
         console.log(`et-${key}`);
         let elem = document.querySelector(`#et-${key}`);
         if (elem) {
             elem.innerHTML = val;
             console.log(val);
-        }
+        } 
     }
 };
 drawEtappe(10);
