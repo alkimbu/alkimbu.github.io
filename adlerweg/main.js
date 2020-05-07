@@ -128,4 +128,4 @@ let drawEinkehr = function() {
 
 // 2. Funktion aufrufen
 drawEinkehr();
-// overlay.einkehr.addTo(map);
+overlay.einkehr.addTo(map);
