@@ -11,7 +11,8 @@ let map = L.map("map", {
 let overlay = {
     adlerblicke: L.featureGroup(),
     etappen: L.featureGroup(),
-    einkehr: L.featureGroup()
+    einkehr: L.featureGroup(),
+    wikipedia: L.featureGroup(),
 };
 
 L.control.layers({
@@ -29,7 +30,8 @@ L.control.layers({
 }, {
     "Adlerblicke": overlay.adlerblicke,
     "Adlerweg Etappen": overlay.etappen,
-    "Einkehrmöglichkeiten": overlay.einkehr
+    "Einkehrmöglichkeiten": overlay.einkehr,
+    "Wikipedia-Artikel": overlay.wikipedia
 }).addTo(map);
 
 //console.log(ETAPPEN);
@@ -113,18 +115,18 @@ pulldown.onchange = function (evt) {
 };
 
 // 1. Funktion definieren
-let drawEinkehr = function() {
+let drawEinkehr = function () {
     for (let einkehr of EINKEHR) {
-    let mrk = L.marker([einkehr[2], einkehr[3]], {
-        icon: L.icon({
-            iconSize: [32, 37],
-            iconAnchor: [16, 37],
-            popupAnchor: [0, -37],
-            iconUrl: "icons/restaurant.png"
-        })
-    }).addTo(overlay.einkehr);
-    
-    mrk.bindPopup(`${einkehr[1]} (Etappe ${einkehr[0]})`);
+        let mrk = L.marker([einkehr[2], einkehr[3]], {
+            icon: L.icon({
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -37],
+                iconUrl: "icons/restaurant.png"
+            })
+        }).addTo(overlay.einkehr);
+
+        mrk.bindPopup(`${einkehr[1]} (Etappe ${einkehr[0]})`);
     }
 };
 
@@ -141,5 +143,28 @@ let controlElevation = L.control.elevation({
 
 // Maßstab hinzufügen
 L.control.scale({
-    imperial:false
+    imperial: false
 }).addTo(map);
+
+
+// Wikipedia Artikel einbinden
+
+map.on("zoomend moveend", function (evt) {
+    let ext = {
+        north: map.getBounds().getNorth(),
+        south: map.getBounds().getSouth(),
+        east: map.getBounds().getEast(),
+        west: map.getBounds().getWest()
+    };
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${ext.north}&south=${ext.south}&east=${ext.east}&west=${ext.west}&username=alkimbu&lang=de&maxRows=30`;
+
+    let wiki = L.Util.jsonp(url).then( function(data) {
+        for (let article of data.geonames)
+        let mrk = L.marker ([article.lat, article.lng}]).addTo(overlay.wikipedia);
+        mrk.bindPopup(`
+        <small>${article.feature}</small>
+        <h3>${article.title} ($)`
+)
+    });
+});
+overlay.wikipedia.addTo(map);
